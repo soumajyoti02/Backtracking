@@ -1,0 +1,29 @@
+class Solution {
+  public:
+    //Function to return a list of indexes denoting the required 
+    //combinations whose sum is equal to given number.
+    void findNumbers(vector<int>& A, vector<vector<int>>& res, vector<int>& r, int sum,int i)
+    {
+        if(sum == 0)
+        {
+            res.push_back(r);
+            return;
+        }
+        while(sum > 0 and i < A.size())
+        {
+            r.push_back(A[i]);
+            findNumbers(A,res,r,sum - A[i],i);
+            i++;
+            r.pop_back();
+        }
+    }
+    vector<vector<int> > combinationSum(vector<int> &A, int B) {
+        // Your code here
+        sort(A.begin(),A.end());
+        A.erase(unique(A.begin(),A.end()),A.end());
+        vector<vector<int>> res;
+        vector<int> r;
+        findNumbers(A,res,r,B,0);
+        return res;
+    }
+};
